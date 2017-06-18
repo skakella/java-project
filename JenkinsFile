@@ -4,9 +4,13 @@ agents any
 
 stages  {
  stage('build'){
- sh  'ant -f build.xml -f'
+   steps{
+    sh  'ant -f build.xml -f' 
+   }
+
+
  }
- 
+
 }
 
 }
