@@ -3,7 +3,7 @@ pipeline {
 agent any
 
 options {
-  buildDiscarder(logRorator(numToKeepStr: '2', artifactNumToKeepStr: '1'))
+  buildDiscarder(logRotator(numToKeepStr: '2', artifactNumToKeepStr: '1'))
 }
 
 stages  {
@@ -11,7 +11,7 @@ stages  {
    steps{
     sh  'ant -f build.xml -v'
    }
-}
+ }
 }
 
 post {
