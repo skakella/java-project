@@ -6,7 +6,6 @@ options {
   buildDiscarder(logRorator(numToKeepStr: '2', artifactsNumToKeepStr: '1'))
 }
 
-
 stages  {
  stage('build'){
    steps{
