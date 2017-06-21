@@ -11,7 +11,7 @@ stages  {
  }
  stage('deploy'){
    steps{
-     sh 'cp build/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all'
+     sh "cp build/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all"
    }
  }
 }
