@@ -31,7 +31,7 @@ stages  {
    }
    steps{
      sh "wget http://skakella3.mylabserver.com/rectangle/all/rectangle_${env.BUILD_NUMBER}.jar"
-     sh "java jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
+     sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
    }
  }
 }
