@@ -34,6 +34,15 @@ stages  {
      sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
    }
  }
+ stage('Running on Debian OS') {
+   agent{
+     docker 'openjdk:8u131-jre'
+   }
+   steps{
+     sh "wget http://skakella3.mylabserver.com/rectangle/all/rectangle_${env.BUILD_NUMBER}.jar"
+     sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
+   }
+ }
 }
 
 
