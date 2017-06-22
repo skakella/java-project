@@ -60,13 +60,13 @@ stages  {
        label 'apache'
      }
      when{
-       branch 'developement'
+       branch 'development'
      }
      steps{
       echo "Stashing Development changes"
       sh "git stash"
       echo "Checkout Development changes"
-      sh "git checkout developement"
+      sh "git checkout development"
       echo "Checkout master changes"
       sh "git checkout master"
       echo "Merge Development changes to Master branch"
