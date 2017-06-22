@@ -10,9 +10,8 @@ stages  {
   stage('Say Hello'){
     agent any
     steps{
-    sayHello 'Aashrith'  
+    sayHello 'Aashrith'
     }
-
   }
  stage('build'){
    agent{
