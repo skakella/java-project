@@ -7,6 +7,13 @@ environment {
 }
 
 stages  {
+  stage('Say Hello'){
+    agent any
+    steps{
+    sayHello 'Aashrith'  
+    }
+
+  }
  stage('build'){
    agent{
      label 'apache'
