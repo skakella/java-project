@@ -22,7 +22,8 @@ stages  {
      label 'apache'
    }
    steps{
-     sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangle/all"
+     sh "mkdir /var/www/html/rectangle/all/${env.BRANCH_NAME}"
+     sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangle/all/${env.BRANCH_NAME}/"
    }
  }
  stage('running on CentOS'){
@@ -30,7 +31,7 @@ stages  {
      label 'CentOS'
    }
    steps{
-     sh "wget http://skakella3.mylabserver.com/rectangle/all/rectangle_${env.BUILD_NUMBER}.jar"
+     sh "wget http://skakella3.mylabserver.com/rectangle/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar"
      sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
    }
  }
@@ -39,7 +40,7 @@ stages  {
      docker 'openjdk:8u131-jre'
    }
    steps{
-     sh "wget http://skakella3.mylabserver.com/rectangle/all/rectangle_${env.BUILD_NUMBER}.jar"
+     sh "wget http://skakella3.mylabserver.com/rectangle/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar"
      sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
    }
  }
@@ -48,12 +49,33 @@ stages  {
      label 'apache'
    }
    when{
-     branch 'development'
+     branch 'master'
    }
    steps{
-  sh "cp /var/www/html/rectangle/all/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangle/green/rectangle_${env.BUILD_NUMBER}.jar"
+  sh "cp /var/www/html/rectangle/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangle/green/rectangle_${env.BUILD_NUMBER}.jar"
    }
    }
+   stage('Promote Dev Branch To Master'){
+     agent{
+       label 'apache'
+     }
+     when{
+       branch 'developement'
+     }
+     steps{
+      echo "Stashing Development changes"
+      sh "git stash"
+      echo "Checkout Development changes"
+      sh "git checkout developement"
+      echo "Checkout master changes"
+      sh "git checkout master"
+      echo "Merge Development changes to Master branch"
+      sh "git merge development"
+      echo "Push master branch changes to github"
+      sh "git push origin master"
+       }
+     }
+
 }
 
 
