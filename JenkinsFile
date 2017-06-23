@@ -14,6 +14,19 @@ stages  {
     sayHello 'Aashrith'
     }
   }
+
+  stage('Get Git Commit id'){
+    agent any
+    steps{
+      echo "My branch name ${env.BRANCH_NAME} and Git path is ${env.WORKSPACE}/.git"
+      script{
+        def myLib = new gitsave.git.gitStuff();
+        echo "My Commit ${myLib.gitCommit("${env.WORKSPACE}/.git")}"
+      }
+    }
+
+    }
+  }
  stage('build'){
    agent{
      label 'apache'
